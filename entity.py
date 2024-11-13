@@ -25,9 +25,14 @@ class Hero(Entity):
         self.weapon = weapon
         print(f"{self.name} equipped {self.weapon.name}")
     
-    def move(self, dx, dy, enemies) -> None:
-        self.x += dx
-        self.y += dy
+    def move(self, dx, dy, enemies, map) -> None:
+        min_x = min(room.x for room in map.rooms.values())
+        max_x = max(room.x for room in map.rooms.values())
+        min_y = min(room.y for room in map.rooms.values())
+        max_y = max(room.y for room in map.rooms.values())
+        if self.x + dx < min_x or self.x + dx > max_x or self.y + dy < min_y or self.y + dy > max_y:
+            self.x += dx
+            self.y += dy
         print(f"{self.name} moved to ({self.x}, {self.y})")
         for enemy in enemies:
             if self.x == enemy.x and self.y == enemy.y:
