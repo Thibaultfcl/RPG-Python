@@ -25,10 +25,14 @@ class Hero(Entity):
         self.weapon = weapon
         print(f"{self.name} equipped {self.weapon.name}")
     
-    def move(self, dx, dy) -> None:
+    def move(self, dx, dy, enemies) -> None:
         self.x += dx
         self.y += dy
         print(f"{self.name} moved to ({self.x}, {self.y})")
+        for enemy in enemies:
+            if self.x == enemy.x and self.y == enemy.y:
+                self.attack(enemy)
+                break
 
 class Ennemy(Entity):
     def __init__(self, name, health, x, y, weapon) -> None:

@@ -47,7 +47,8 @@ class Map:
         current_room = self.rooms.get((hero.x, hero.y))
         if current_room:
             print(f"You are in: {current_room.description}")
-        print("Press 'esc' to exit the map.")
+        print("Press '$' to exit the map.")
         
-        keyboard.wait('esc')
+        keyboard.wait('$')
         os.system('cls')
+        return
