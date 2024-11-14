@@ -17,7 +17,7 @@ def display_menu() -> str:
     choice = input("Enter your choice: ")
     return choice
 
-def save_game(hero, enemy, map_instance) -> None:
+def save_game(hero, enemies, map_instance) -> None:
     game_state = {
         "hero": {
             "name": hero.name,
@@ -26,13 +26,16 @@ def save_game(hero, enemy, map_instance) -> None:
             "y": hero.y,
             "weapon": hero.weapon.name
         },
-        "enemy": {
-            "name": enemy.name,
-            "health": enemy.health,
-            "x": enemy.x,
-            "y": enemy.y,
-            "weapon": enemy.weapon.name
-        },
+        "enemies": [
+            {
+                "name": enemy.name,
+                "health": enemy.health,
+                "x": enemy.x,
+                "y": enemy.y,
+                "weapon": enemy.weapon.name
+            }
+            for enemy in enemies
+        ],
         "map": [
             {"x": room.x, "y": room.y, "description": room.description}
             for room in map_instance.rooms.values()
@@ -49,22 +52,27 @@ def load_game():
     hero = Hero(game_state["hero"]["name"], game_state["hero"]["health"], game_state["hero"]["x"], game_state["hero"]["y"])
     hero.weapon = next(w for w in [sword, axe, dager, fist] if w.name == game_state["hero"]["weapon"])
     
-    enemy = Ennemy(game_state["enemy"]["name"], game_state["enemy"]["health"], game_state["enemy"]["x"], game_state["enemy"]["y"], sword)
-    enemy.weapon = next(w for w in [sword, axe, dager, fist] if w.name == game_state["enemy"]["weapon"])
+    enemies = []
+    for enemy_data in game_state["enemies"]:
+        enemy = Ennemy(enemy_data["name"], enemy_data["health"], enemy_data["x"], enemy_data["y"], sword)
+        enemy.weapon = next(w for w in [sword, axe, dager, fist] if w.name == enemy_data["weapon"])
+        enemies.append(enemy)
     
     map_instance = Map()
     for room_data in game_state["map"]:
         map_instance.add_room(Room(room_data["x"], room_data["y"], room_data["description"]))
     
-    return hero, enemy, map_instance
+    return hero, enemies, map_instance
 
 def main() -> None:
-    hero, enemy, map_instance = None, None, None
+    hero, enemies, map_instance = None, None, None
     while True:
         choice = display_menu()
         if choice == '1':
             hero = Hero("Hero", 100, 0, 0)
-            enemy = Ennemy("Ennemy", 50, 1, 0, sword)
+            enemy = Ennemy("Ennemy", 50, 1, 0, dager)
+            chest = Chest(-1, 0)
+            chests = [chest]
             enemies = [enemy]
             map_instance = Map()
             map_instance.add_room(Room(0, 0, "Salle de départ"))
@@ -75,7 +83,7 @@ def main() -> None:
             break
         elif choice == '2':
             try:
-                hero, enemy, map_instance = load_game()
+                hero, enemies, map_instance = load_game()
                 print("Game loaded.")
                 break
             except FileNotFoundError:
@@ -96,15 +104,15 @@ def main() -> None:
         move = input('Enter direction (z/q/s/d) or , to display map, m to exit: ')
         
         if move == 'z':
-            hero.move(0, 1, enemies, map_instance)
+            hero.move(0, 1, enemies, map_instance, chests)
         elif move == 's':
-            hero.move(0, -1, enemies, map_instance)
+            hero.move(0, -1, enemies, map_instance, chests)
         elif move == 'q':
-            hero.move(-1, 0, enemies, map_instance)
+            hero.move(-1, 0, enemies, map_instance, chests)
         elif move == 'd':
-            hero.move(1, 0, enemies, map_instance)
+            hero.move(1, 0, enemies, map_instance, chests)
         elif move == ',':
-            map_instance.display(hero, enemies)
+            map_instance.display(hero, enemies, chests)
         elif move == 'm':
             save_game(hero, enemies, map_instance)
             break

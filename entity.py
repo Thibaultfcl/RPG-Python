@@ -23,6 +23,7 @@ class Hero(Entity):
     
     def attack(self, other) -> None:
         print(f"{self.name} just found {other.name}")
+        input("Press any key to continue...")
         
         while self.health > 0 and other.health > 0:
             action = input(f"Press 'a' to attack {other.name} or 'i' to use an item: ")
@@ -35,7 +36,6 @@ class Hero(Entity):
                 
                 if other.health <= 0:
                     print(f"{other.name} has been defeated!")
-                    break
                 
                 time.sleep(1)
                 
@@ -47,7 +47,7 @@ class Hero(Entity):
                 
                 if self.health <= 0:
                     print(f"{self.name} has been defeated!")
-                    break
+                
             elif action == 'i':
                 print("Item usage not implemented yet.")
             else:
@@ -56,7 +56,7 @@ class Hero(Entity):
             input("Press any key to continue...")
             os.system('cls')
     
-    def move(self, dx, dy, enemies, map) -> None:
+    def move(self, dx, dy, enemies, map, chests) -> None:
         min_x = min(room.x for room in map.rooms.values())
         max_x = max(room.x for room in map.rooms.values())
         min_y = min(room.y for room in map.rooms.values())
@@ -68,6 +68,11 @@ class Hero(Entity):
             for enemy in enemies:
                 if self.x == enemy.x and self.y == enemy.y:
                     self.attack(enemy)
+                    break
+            for chest in chests:
+                if self.x == chest.x and self.y == chest.y:
+                    chest.open(self)
+                    chests.remove(chest)
                     break
         else:
             print("INVALID MOVE")

@@ -18,7 +18,7 @@ class Map:
     def add_room(self, room):
         self.rooms[(room.x, room.y)] = room
 
-    def display(self, hero, enemies):
+    def display(self, hero, enemies, chests):
         os.system('cls')
         if not self.rooms:
             print("La carte est vide.")
@@ -39,6 +39,8 @@ class Map:
                         row += "[O]"
                     elif any(x == enemy.x and y == enemy.y for enemy in enemies):
                         row += "[X]"
+                    elif any(x == chest.x and y == chest.y for chest in chests):
+                        row += "[?]"
                     else:
                         row += "[ ]"
                 else:
