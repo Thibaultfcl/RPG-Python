@@ -85,3 +85,11 @@ class Ennemy(Entity):
         super().__init__(name, health, x, y)
         self.weapon = weapon
         self.health_bar = HealthBar(self, color="red")
+
+def display_inventory(hero) -> None:
+    print("=== INVENTORY ===")
+    print(f"Name: {hero.name}")
+    print(f"Health: {hero.health}")
+    print(f"Weapon: {hero.weapon.name}")
+    print(f"Potion: {hero.potion}")
+    input("Press any key to continue...")
