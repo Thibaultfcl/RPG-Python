@@ -8,6 +8,7 @@ from weapon import sword
 def main() -> None:
     hero = Hero("Hero", 100, 0, 0)
     enemy = Ennemy("Ennemy", 50, 1, 0, sword)
+    enemies = [enemy]
     
     map_instance = Map()
     map_instance.add_room(Room(0, 0, "Salle de départ"))
@@ -17,21 +18,21 @@ def main() -> None:
     map_instance.add_room(Room(-1, 0, "Salle à l'ouest"))
 
     while True:
-        time.sleep(2)
+        time.sleep(0.5)
         os.system('cls')
         
         move = input('Enter direction (z/q/s/d) or , to display map, m to exit: ')
         
         if move == 'z':
-            hero.move(0, 1, [enemy], map_instance)
+            hero.move(0, 1, enemies, map_instance)
         elif move == 's':
-            hero.move(0, -1, [enemy], map_instance)
+            hero.move(0, -1, enemies, map_instance)
         elif move == 'q':
-            hero.move(-1, 0, [enemy], map_instance)
+            hero.move(-1, 0, enemies, map_instance)
         elif move == 'd':
-            hero.move(1, 0, [enemy], map_instance)
+            hero.move(1, 0, enemies, map_instance)
         elif move == ',':
-            map_instance.display(hero)
+            map_instance.display(hero, enemies)
         elif move == 'm':
             break
 
