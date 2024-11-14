@@ -1,5 +1,5 @@
 import os
-import keyboard
+
 
 class Room:
     def __init__(self, x, y, description=""):
@@ -49,6 +49,5 @@ class Map:
             print(f"You are in: {current_room.description}")
         print("Press '$' to exit the map.")
         
-        keyboard.wait('$')
         os.system('cls')
         return
