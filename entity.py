@@ -21,6 +21,14 @@ class Hero(Entity):
         self.weapon = weapon
         print(f"{self.name} equipped {self.weapon.name}")
     
+    def display_inventory(self) -> None:
+        print("=== INVENTORY ===")
+        print(f"Name: {self.name}")
+        print(f"Health: {self.health}")
+        print(f"Weapon: {self.weapon.name}")
+        # print(f"Potion: {self.potion}")
+        input("Press any key to continue...")
+    
     def attack(self, other) -> None:
         print(f"{self.name} just found {other.name}")
         input("Press any key to continue...")
@@ -86,10 +94,3 @@ class Ennemy(Entity):
         self.weapon = weapon
         self.health_bar = HealthBar(self, color="red")
 
-def display_inventory(hero) -> None:
-    print("=== INVENTORY ===")
-    print(f"Name: {hero.name}")
-    print(f"Health: {hero.health}")
-    print(f"Weapon: {hero.weapon.name}")
-    print(f"Potion: {hero.potion}")
-    input("Press any key to continue...")

@@ -4,7 +4,7 @@ import json
 
 import keyboard
 from map import Map, Room
-from entity import Hero, Ennemy, display_inventory
+from entity import Hero, Ennemy
 from weapon import *
 
 SAVE_FILE = "savegame.json"
@@ -141,7 +141,7 @@ def main() -> None:
         elif move == ',':
             map_instance.display(hero, enemies, chests)
         elif move == 'i':
-            hero.display_inventory(hero) 
+            hero.display_inventory() 
             input("Press any key to continue...")
         elif move == 'm':
             save_game(hero, enemies, map_instance)
