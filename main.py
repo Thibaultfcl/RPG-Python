@@ -84,10 +84,10 @@ def main() -> None:
             enemies = [enemy]
             map_instance = Map()
             map_instance.add_room(Room(0, 0, "Salle de départ"))
-            map_instance.add_room(Room(1, 0, "Salle à l'est"))
-            map_instance.add_room(Room(0, 1, "Salle au nord"))
-            map_instance.add_room(Room(1, 1, "Salle nord-est"))
-            map_instance.add_room(Room(-1, 0, "Salle à l'ouest"))
+            map_instance.add_room(Room(1, 0, "Salle au Nord"))
+            map_instance.add_room(Room(0, 1, "Salle gardée par un ennemi"))
+            map_instance.add_room(Room(1, 1, "Salle mysterieuse"))
+            map_instance.add_room(Room(-1, 0, "Salle du trésor"))
             break
         elif choice == '2':
             try:
@@ -119,10 +119,10 @@ def main() -> None:
                 enemies = [enemy]
                 map_instance = Map()
                 map_instance.add_room(Room(0, 0, "Salle de départ"))
-                map_instance.add_room(Room(1, 0, "Salle à l'est"))
-                map_instance.add_room(Room(0, 1, "Salle au nord"))
-                map_instance.add_room(Room(1, 1, "Salle nord-est"))
-                map_instance.add_room(Room(-1, 0, "Salle à l'ouest"))
+                map_instance.add_room(Room(1, 0, "Salle au Nord"))
+                map_instance.add_room(Room(0, 1, "Salle gardée par un ennemi"))
+                map_instance.add_room(Room(1, 1, "Salle mysterieuse"))
+                map_instance.add_room(Room(-1, 0, "Salle du trésor"))
             elif choice == '2':
                 print("Exiting...")
                 time.sleep(2)
