@@ -36,6 +36,7 @@ class Hero(Entity):
                 
                 if other.health <= 0:
                     print(f"{other.name} has been defeated!")
+                    continue
                 
                 time.sleep(1)
                 
@@ -55,6 +56,8 @@ class Hero(Entity):
             
             input("Press any key to continue...")
             os.system('cls')
+        input("Press any key to continue...")
+        os.system('cls')
     
     def move(self, dx, dy, enemies, map, chests) -> None:
         min_x = min(room.x for room in map.rooms.values())
