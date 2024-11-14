@@ -17,6 +17,14 @@ def display_menu() -> str:
     choice = input("Enter your choice: ")
     return choice
 
+def display_GameOver() -> str:
+    os.system('cls')
+    print("=== GAME OVER ===")
+    print("1. Retry")
+    print("2. Exit")
+    choice = input("Enter your choice: ")
+    return choice
+
 def save_game(hero, enemies, map_instance) -> None:
     game_state = {
         "hero": {
@@ -100,6 +108,25 @@ def main() -> None:
     while True:
         time.sleep(0.5)
         os.system('cls')
+        
+        if hero.health <= 0:
+            choice = display_GameOver()
+            if choice == '1':
+                hero = Hero("Hero", 100, 0, 0)
+                enemy = Ennemy("Ennemy", 50, 1, 0, dager)
+                chest = Chest(-1, 0)
+                chests = [chest]
+                enemies = [enemy]
+                map_instance = Map()
+                map_instance.add_room(Room(0, 0, "Salle de départ"))
+                map_instance.add_room(Room(1, 0, "Salle à l'est"))
+                map_instance.add_room(Room(0, 1, "Salle au nord"))
+                map_instance.add_room(Room(1, 1, "Salle nord-est"))
+                map_instance.add_room(Room(-1, 0, "Salle à l'ouest"))
+            elif choice == '2':
+                print("Exiting...")
+                time.sleep(2)
+                break
         
         move = input('Enter direction (z/q/s/d) or , to display map, m to exit: ')
         
