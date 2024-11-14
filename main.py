@@ -4,7 +4,7 @@ import json
 
 import keyboard
 from map import Map, Room
-from entity import Hero, Ennemy
+from entity import Hero, Ennemy, display_inventory
 from weapon import *
 
 SAVE_FILE = "savegame.json"
@@ -129,7 +129,7 @@ def main() -> None:
                 time.sleep(2)
                 break
         
-        move = input('Enter direction (z/q/s/d) or , to display map, m to exit: ')
+        move = input('Enter direction (z/q/s/d) or , to display map,i to inventory, m to exit: ')
         if move == 'z':
             hero.move(0, 1, enemies, map_instance, chests)
         elif move == 's':
@@ -141,7 +141,7 @@ def main() -> None:
         elif move == ',':
             map_instance.display(hero, enemies, chests)
         elif move == 'i':
-            hero.display_inventory()
+            hero.display_inventory(hero) 
             input("Press any key to continue...")
         elif move == 'm':
             save_game(hero, enemies, map_instance)
