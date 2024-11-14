@@ -1,4 +1,4 @@
-import keyboard
+import time
 import os
 
 from map import Map, Room
@@ -17,6 +17,7 @@ def main() -> None:
     map_instance.add_room(Room(-1, 0, "Salle à l'ouest"))
 
     while True:
+        time.sleep(2)
         os.system('cls')
         
         move = input('Enter direction (z/q/s/d) or , to display map, m to exit: ')
