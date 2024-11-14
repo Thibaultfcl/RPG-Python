@@ -50,7 +50,6 @@ class Map:
         if current_room:
             print(f"You are in: {current_room.description}")
         print("Press '$' to exit the map.")
-        
         keyboard.wait('$')
         os.system('cls')
         return
