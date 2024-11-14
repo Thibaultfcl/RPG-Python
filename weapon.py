@@ -30,3 +30,39 @@ class Chest:
     def remove(self):
         self.x = 1000
         self.y = 1000
+
+class Items:
+    def __init__(self, name, value, description):
+        self.name = name
+        self.value = value
+        self.description = description
+    
+    def add (self, hero):
+        hero.inventory.append(self)
+        print(f"{hero.name} picked up a {self.name}.")
+        input("Press any key to continue...")
+        return
+
+class HealthPotion(Items):
+    def __init__(self):
+        super().__init__("Health Potion", 50, "Heals 50 HP")
+    
+    def use(self, hero):
+        hero.health += self.value
+        hero.health = min(hero.health, hero.health_max)
+        print(f"{hero.name} used a Health Potion and restored 50 HP.")
+        input("Press any key to continue...")
+        return
+
+class Bomb(Items):
+    def __init__(self):
+        super().__init__("Bomb", 50, "Deals 50 damage to the enemy")
+    
+    def use(self, enemy):
+        enemy.health -= self.value
+        enemy.health = max(enemy.health, 0)
+        enemy.health_bar.update()
+        enemy.health_bar.draw()
+        print(f"{enemy.name} took 50 damage from the bomb.")
+        input("Press any key to continue...")
+        return

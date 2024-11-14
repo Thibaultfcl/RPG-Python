@@ -2,7 +2,6 @@ import time
 import os
 import json
 
-import keyboard
 from map import Map, Room
 from entity import Hero, Ennemy
 from weapon import *
@@ -89,6 +88,8 @@ def main() -> None:
             map_instance.add_room(Room(0, 1, "Salle gardée par un ennemi"))
             map_instance.add_room(Room(1, 1, "Salle mysterieuse"))
             map_instance.add_room(Room(-1, 0, "Salle du trésor"))
+            # bomb = Bomb()
+            # bomb.add(hero)
             break
         elif choice == '2':
             try:
@@ -129,7 +130,7 @@ def main() -> None:
                 time.sleep(2)
                 break
         
-        move = input('Enter direction (z/q/s/d) or , to display map,i to inventory, m to exit: ')
+        move = input('Enter direction (z/q/s/d) or \',\' to display map, i to inventory, m to exit: ')
         if move == 'z':
             hero.move(0, 1, enemies, map_instance, chests)
         elif move == 's':
@@ -142,7 +143,6 @@ def main() -> None:
             map_instance.display(hero, enemies, chests)
         elif move == 'i':
             hero.display_inventory() 
-            input("Press any key to continue...")
         elif move == 'm':
             save_game(hero, enemies, map_instance)
             break
